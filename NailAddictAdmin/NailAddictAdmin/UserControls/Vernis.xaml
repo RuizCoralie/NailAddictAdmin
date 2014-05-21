@@ -33,10 +33,11 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <Image Source="/Resources/nail.png" Height="43" Margin="10,0,0,0" RenderTransformOrigin="0.494,0.65"></Image>
-            <TextBlock x:Name="tbTitre" Text="Vernis :" Style="{StaticResource TextBlockStyleTitre}"/>
+            <TextBlock x:Name="tbTitre" Text="Vernis : " Style="{StaticResource TextBlockStyleTitre}"/>
             <TextBlock x:Name="tbAction" Text="{Binding Action}" Style="{StaticResource TextBlockStyleTitre}"/>
         </StackPanel>
-        <DataGrid ItemsSource="{Binding VernisCollection, Mode=TwoWay}" AutoGenerateColumns="False" Grid.Row="1" SelectedItem="{Binding VernisSelected}">
+        <DataGrid ItemsSource="{Binding VernisCollection, Mode=TwoWay}" AutoGenerateColumns="False" Grid.Row="1" 
+                  SelectedItem="{Binding VernisSelected}" SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Marque" Binding="{Binding Marque}" IsReadOnly="True"/>

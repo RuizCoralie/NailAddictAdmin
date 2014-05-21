@@ -3,10 +3,12 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converter="clr-namespace:NailAddictAdmin.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <UserControl.Resources>
+        <converter:InverseBooleanConverter x:Key="BooleanToNegate"/>
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="FontSize" Value="15" />
@@ -31,20 +33,23 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <Image Source="/Resources/nail.png" Height="43" Margin="10,0,0,0" RenderTransformOrigin="0.494,0.65"></Image>
-            <TextBlock Text="Medias" Style="{StaticResource TextBlockStyleTitre}"/>
+            <TextBlock Text="Medias : " Style="{StaticResource TextBlockStyleTitre}"/>
+            <TextBlock x:Name="tbAction" Text="{Binding Action}" Style="{StaticResource TextBlockStyleTitre}"/>
         </StackPanel>
-        <DataGrid ItemsSource="{Binding MediaCollection, Mode=TwoWay}" AutoGenerateColumns="False" Grid.Row="1" SelectedItem="{Binding MediaSelected}">
+        <DataGrid ItemsSource="{Binding MediaCollection, Mode=TwoWay}" AutoGenerateColumns="False" Grid.Row="1" 
+                  SelectedItem="{Binding MediaSelected}" SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Type" Binding="{Binding Type}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Lien media" Binding="{Binding LienMedia}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Valide" Binding="{Binding Valide}" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
             <Button x:Name="btn_Valide" Style="{StaticResource ButtonStyle}" Content="Valider" IsEnabled="{Binding VisibilityValide}" Click="btn_Valide_Click" />
-            <Button x:Name="btn_Supp" Style="{StaticResource ButtonStyle}" Content="Supprimer" Click="btn_Supp_Click" />
+            <Button x:Name="btn_Supp" Style="{StaticResource ButtonStyle}" Content="Supprimer" IsEnabled="{Binding VisibilityValide,Converter={StaticResource BooleanToNegate}}" Click="btn_Supp_Click" />
         </StackPanel>
     </Grid>
 </UserControl>

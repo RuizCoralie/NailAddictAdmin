@@ -1,4 +1,5 @@
-﻿using NailAddictAdmin.Models;
+﻿using MySql.Data.MySqlClient;
+using NailAddictAdmin.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,7 +25,7 @@ namespace NailAddictAdmin.UserControls
     public partial class Media : UserControl, INotifyPropertyChanged
     {
         
-          private bool _VisibilityValide;
+        private bool _VisibilityValide;
         public bool VisibilityValide
         {
             get { return _VisibilityValide; }
@@ -45,10 +46,21 @@ namespace NailAddictAdmin.UserControls
             InitializeComponent();
             MediaCollection = new ObservableCollection<MediaModel>(media);
             VisibilityValide = valide;
+            Action = valide ? "Validation" : "Gestion";
         }
         #endregion
 
         #region Fields
+        private string _Action;
+        public string Action
+        {
+            get { return _Action; }
+            set
+            {
+                _Action = value;
+                NotifyPropertyChanged("Action");
+            }
+        }
         private ObservableCollection<MediaModel> _MediaCollection;
         public ObservableCollection<MediaModel> MediaCollection
         {
@@ -96,12 +108,82 @@ namespace NailAddictAdmin.UserControls
 
         private void btn_Supp_Click(object sender, RoutedEventArgs e)
         {
-            //Requête supp vernis
+            if (MessageBox.Show("Voulez vous vraiment suppimer ce media?", "Question", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                //Requête supp media
+                try
+                {
+                    if (MainWindow.Connexion.State == System.Data.ConnectionState.Open)
+                    {
+                        string query = "DELETE FROM media WHERE id_media = " + MediaSelected.Id;
+                        MySqlCommand cmd = new MySqlCommand(query, MainWindow.Connexion);
+
+                        MySqlDataReader dataReader = cmd.ExecuteReader();
+                        dataReader.Close();
+
+                        Refresh(true);
+                    }
+                }
+                catch (MySql.Data.MySqlClient.MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
 
         private void btn_Valide_Click(object sender, RoutedEventArgs e)
         {
-            //Requête valide vernis
+            //Requête valide media
+            try
+            {
+                if (MainWindow.Connexion.State == System.Data.ConnectionState.Open)
+                {
+                    string query = "UPDATE media SET valide='1' WHERE id_media = " + MediaSelected.Id;
+                    MySqlCommand cmd = new MySqlCommand(query, MainWindow.Connexion);
+
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    dataReader.Close();
+
+                    Refresh(true);
+                }
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void Refresh(bool valide)
+        {
+            List<MediaModel> listMedia = new List<MediaModel>();
+            try
+            {
+                if (MainWindow.Connexion.State == System.Data.ConnectionState.Open)
+                {
+
+                    string query = null;
+                    if (valide)
+                        query = "SELECT * FROM media WHERE valide=0  ORDER BY date_creation";
+                    else
+                        query = "SELECT * FROM media ORDER BY date_creation";
+
+                    MySqlCommand cmd = new MySqlCommand(query, MainWindow.Connexion);
+
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    //Read the data and store them in the list
+                    while (dataReader.Read())
+                    {
+                        listMedia.Add(new MediaModel(dataReader));
+                    }
+                    MediaCollection = new ObservableCollection<MediaModel>(listMedia);
+                    dataReader.Close();
+
+                }
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

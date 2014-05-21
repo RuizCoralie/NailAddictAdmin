@@ -123,6 +123,10 @@ namespace NailAddictAdmin.Models
             Magasin = Convert.ToString(user["nom_magasin"]);
             Valide = Convert.ToBoolean(user["valide"]);
         }
+        public VernisModel(MySqlDataReader vernis, bool b)
+        {
+            Id = Convert.ToInt32(vernis["id_vernis"]);
+        }
         public VernisModel()
         {
             

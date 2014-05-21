@@ -217,7 +217,32 @@ namespace NailAddictAdmin
         }
         private void btn_MediaValider_Click(object sender, RoutedEventArgs e)
         {
+            List<MediaModel> listMedia = new List<MediaModel>();
+            try
+            {
+                if (Connexion.State == System.Data.ConnectionState.Open)
+                {
+                    string query = "SELECT * FROM media WHERE valide=0  ORDER BY date_creation";
+                    MySqlCommand cmd = new MySqlCommand(query, Connexion);
 
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    //Read the data and store them in the list
+                    while (dataReader.Read())
+                    {
+                        listMedia.Add(new MediaModel(dataReader));
+                    }
+
+                    dataReader.Close();
+
+                    if (listMedia != null)
+                        Uc_Admin = new Media(listMedia, true);
+                }
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)

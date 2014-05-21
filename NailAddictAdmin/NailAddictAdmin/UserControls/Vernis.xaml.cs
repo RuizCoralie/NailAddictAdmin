@@ -108,41 +108,41 @@ namespace NailAddictAdmin.UserControls
 
         private void btn_Supp_Click(object sender, RoutedEventArgs e)
         {
-            List<VernisModel> listVernis = new List<VernisModel>();
-            try
+            if (MessageBox.Show("Voulez vous vraiment suppimer ce vernis?", "Question", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                if (MainWindow.Connexion.State == System.Data.ConnectionState.Open)
+                try
                 {
-                    MySqlCommand cmd = null;
-                    MySqlDataReader dataReader = null;
-                    string query = null;
+                    if (MainWindow.Connexion.State == System.Data.ConnectionState.Open)
+                    {
+                        MySqlCommand cmd = null;
+                        MySqlDataReader dataReader = null;
+                        string query = null;
 
-                    //Delete Vernis collection
-                    query = "DELETE FROM collection WHERE id_vernis = " + VernisSelected.Id;
-                    cmd = new MySqlCommand(query, MainWindow.Connexion);
-                    dataReader = cmd.ExecuteReader();                
-                    dataReader.Close();
+                        //Delete Vernis collection
+                        query = "DELETE FROM collection WHERE id_vernis = " + VernisSelected.Id;
+                        cmd = new MySqlCommand(query, MainWindow.Connexion);
+                        dataReader = cmd.ExecuteReader();
+                        dataReader.Close();
 
-                    //Delete Vernis
-                    query = "DELETE FROM vernis WHERE id_vernis = " + VernisSelected.Id;
-                    cmd = new MySqlCommand(query, MainWindow.Connexion);
-                    dataReader = cmd.ExecuteReader();
-                    dataReader.Close();
+                        //Delete Vernis
+                        query = "DELETE FROM vernis WHERE id_vernis = " + VernisSelected.Id;
+                        cmd = new MySqlCommand(query, MainWindow.Connexion);
+                        dataReader = cmd.ExecuteReader();
+                        dataReader.Close();
 
-                    Refresh(false);
+                        Refresh(false);
+                    }
                 }
-            }
-            catch (MySql.Data.MySqlClient.MySqlException ex)
-            {
-                MessageBox.Show(ex.Message);
+                catch (MySql.Data.MySqlClient.MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
         private void btn_Valide_Click(object sender, RoutedEventArgs e)
         {
             //Requête valide vernis
-
-            List<VernisModel> listVernis = new List<VernisModel>();
             try
             {
                 if (MainWindow.Connexion.State == System.Data.ConnectionState.Open)

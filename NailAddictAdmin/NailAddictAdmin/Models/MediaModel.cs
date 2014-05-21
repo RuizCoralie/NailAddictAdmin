@@ -54,7 +54,16 @@ namespace NailAddictAdmin.Models
                 NotifyPropertyChanged("Description");
             }
         }
-
+        private bool _Valide;
+        public bool Valide
+        {
+            get { return _Valide; }
+            set
+            {
+                _Valide = value;
+                NotifyPropertyChanged("Valide");
+            }
+        }
         #endregion
 
         #region Init
@@ -64,6 +73,7 @@ namespace NailAddictAdmin.Models
             LienMedia = Convert.ToString(user["lien_media"]);
             Type = Convert.ToString(user["type"]);
             Description = Convert.ToString(user["description_media"]);
+            Valide = Convert.ToBoolean(user["valide"]);
          }
         public MediaModel()
         {

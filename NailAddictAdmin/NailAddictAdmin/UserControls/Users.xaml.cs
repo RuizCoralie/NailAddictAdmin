@@ -1,4 +1,5 @@
-﻿using NailAddictAdmin.Models;
+﻿using MySql.Data.MySqlClient;
+using NailAddictAdmin.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -40,7 +41,7 @@ namespace NailAddictAdmin.UserControls
         private ObservableCollection<Utilisateur> _UsersCollection;
         public ObservableCollection<Utilisateur> UsersCollection
         {
-            get 
+            get
             {
                 if (_UsersCollection == null)
                     _UsersCollection = new ObservableCollection<Utilisateur>();
@@ -58,8 +59,6 @@ namespace NailAddictAdmin.UserControls
         {
             get
             {
-                if (_UtilisateurSelected == null)
-                    _UtilisateurSelected = new Utilisateur();
                 return _UtilisateurSelected;
             }
             set
@@ -84,7 +83,94 @@ namespace NailAddictAdmin.UserControls
 
         private void btn_Supp_Click(object sender, RoutedEventArgs e)
         {
-            //Requête supp user
+            if (UtilisateurSelected != null)
+            {
+                List<VernisModel> listVernis = new List<VernisModel>();
+                if (MessageBox.Show("Voulez vous vraiment suppimer ce user?", "Question", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    //Requête supp user
+                    try
+                    {
+                        if (MainWindow.Connexion.State == System.Data.ConnectionState.Open)
+                        {
+                            MySqlCommand cmd = null;
+                            MySqlDataReader dataReader = null;
+                            string query = null;
+                            // Recup des vernis
+                            query = "SELECT collection.id_vernis FROM  utilisateur JOIN collection ON utilisateur.id_user = collection.id_user WHERE utilisateur.id_user = " + UtilisateurSelected.Id;
+                            cmd = new MySqlCommand(query, MainWindow.Connexion);
+                            dataReader = cmd.ExecuteReader();
+                            while (dataReader.Read())
+                            {
+                                listVernis.Add(new VernisModel(dataReader, true));
+                            }
+                            dataReader.Close();
+
+                            if (listVernis.Count != 0)
+                            {
+                                //Delete Vernis/User collection
+                                query = "DELETE FROM collection WHERE id_user = " + UtilisateurSelected.Id;
+                                cmd = new MySqlCommand(query, MainWindow.Connexion);
+                                dataReader = cmd.ExecuteReader();
+                                dataReader.Close();
+
+                                foreach (var vernis in listVernis)
+                                {
+                                    //Delete vernis
+                                    query = "DELETE FROM vernis WHERE id_vernis = " + vernis.Id;
+                                    cmd = new MySqlCommand(query, MainWindow.Connexion);
+                                    dataReader = cmd.ExecuteReader();
+                                    dataReader.Close();
+                                }
+                            }
+
+                            //Delete user
+                            query = "DELETE FROM utilisateur WHERE id_user = " + UtilisateurSelected.Id;
+                            cmd = new MySqlCommand(query, MainWindow.Connexion);
+                            dataReader = cmd.ExecuteReader();
+                            dataReader.Close();
+
+                            Refresh();
+                        }
+
+                    }
+                    catch (MySql.Data.MySqlClient.MySqlException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
+        }
+
+        private void Refresh()
+        {
+            List<Utilisateur> listUsers = new List<Utilisateur>();
+            try
+            {
+                if (MainWindow.Connexion.State == System.Data.ConnectionState.Open)
+                {
+
+                    string query = null;
+                    query = "SELECT * FROM utilisateur JOIN localisation ON id_localisation_user = id_localisation";
+
+
+                    MySqlCommand cmd = new MySqlCommand(query, MainWindow.Connexion);
+
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    //Read the data and store them in the list
+                    while (dataReader.Read())
+                    {
+                        listUsers.Add(new Utilisateur(dataReader));
+                    }
+                    UsersCollection = new ObservableCollection<Utilisateur>(listUsers);
+                    dataReader.Close();
+                }
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

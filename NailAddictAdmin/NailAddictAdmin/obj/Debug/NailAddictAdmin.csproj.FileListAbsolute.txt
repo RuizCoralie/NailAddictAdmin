@@ -20,3 +20,4 @@ c:\users\ruizc\documents\visual studio 2013\Projects\NailAddictAdmin\NailAddictA
 c:\users\ruizc\documents\visual studio 2013\Projects\NailAddictAdmin\NailAddictAdmin\obj\Debug\NailAddictAdmin.exe
 c:\users\ruizc\documents\visual studio 2013\Projects\NailAddictAdmin\NailAddictAdmin\obj\Debug\NailAddictAdmin.pdb
 c:\users\ruizc\documents\visual studio 2013\Projects\NailAddictAdmin\NailAddictAdmin\obj\Debug\GeneratedInternalTypeHelper.g.cs
+c:\users\ruizc\documents\visual studio 2013\Projects\NailAddictAdmin\NailAddictAdmin\obj\Debug\NailAddictAdmin.csprojResolveAssemblyReference.cache

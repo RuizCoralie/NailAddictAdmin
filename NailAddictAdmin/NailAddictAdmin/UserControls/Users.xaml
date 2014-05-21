@@ -33,7 +33,8 @@
             <Image Source="/Resources/nail.png" Height="43" Margin="10,0,0,0" RenderTransformOrigin="0.494,0.65"></Image>
             <TextBlock Text="Users" Style="{StaticResource TextBlockStyleTitre}"/>
         </StackPanel>
-        <DataGrid ItemsSource="{Binding UsersCollection, Mode=TwoWay}" AutoGenerateColumns="False" Grid.Row="1" SelectedItem="{Binding UtilisateurSelected}">
+        <DataGrid ItemsSource="{Binding UsersCollection, Mode=TwoWay}" AutoGenerateColumns="False" Grid.Row="1" 
+                  SelectedItem="{Binding UtilisateurSelected}" SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" IsReadOnly="True"/>
