@@ -1,0 +1,29 @@
+﻿<Window x:Class="NailAddictAdmin.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:UC="clr-namespace:NailAddictAdmin.UserControls"
+        Title="NailAddict Admin" Height="350" Width="525" WindowState="Maximized"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}" Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="21"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem x:Name="btn_Accueil" Header="Accueil" Click="Accueil_Click" />
+            <MenuItem Header="User" >
+                <MenuItem x:Name="btn_UserAll" Header="All" Click="btn_UserAll_Click"/>
+            </MenuItem>
+            <MenuItem Header="Vernis">
+                <MenuItem x:Name="btn_VernisAll" Header="All" Click="btn_VernisAll_Click"/>
+                <MenuItem x:Name="btn_VernisValider" Header="Valider" Click="btn_VernisValider_Click"/>
+            </MenuItem>
+            <MenuItem Header="Media">
+                <MenuItem x:Name="btn_MediaAll" Header="All" Click="btn_MediaAll_Click"/>
+                <MenuItem x:Name="btn_MediaValider" Header="Valider" Click="btn_MediaValider_Click"/>
+            </MenuItem>
+        </Menu>
+        <UserControl Grid.Row="1"  Content="{Binding Uc_Admin, Mode=TwoWay}" >
+        </UserControl>
+    </Grid>
+</Window>
