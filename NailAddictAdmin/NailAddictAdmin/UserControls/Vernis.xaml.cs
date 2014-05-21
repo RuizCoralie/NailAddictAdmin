@@ -25,18 +25,19 @@ namespace NailAddictAdmin.UserControls
     /// </summary>
     public partial class Vernis : UserControl, INotifyPropertyChanged
     {
-       
+        private int SimpleUserId;
         #region Init
         public Vernis()
         {
             InitializeComponent();
         }
-        public Vernis(List<VernisModel> vernis, bool valide)
+        public Vernis(List<VernisModel> vernis, bool valide,int simpleUser=0)
         {
             InitializeComponent();
             VernisCollection = new ObservableCollection<VernisModel>(vernis);
             VisibilityValide = valide;
             Action = valide ? "Validation" : "Gestion";
+            SimpleUserId = simpleUser;
         }
         #endregion
 
@@ -172,10 +173,15 @@ namespace NailAddictAdmin.UserControls
                 {
 
                     string query = null;
-                    if(valide)
-                        query = "SELECT * FROM prix JOIN vernis on id_prix_vernis = id_prix JOIN magasin on id_magasin_vernis = id_magasin WHERE valide = 0 ";
+                    if (SimpleUserId != 0)
+                        query = "SELECT * FROM utilisateur JOIN collection ON utilisateur.id_user = collection.id_user JOIN vernis ON collection.id_vernis = vernis.id_vernis JOIN prix ON id_prix_vernis = id_prix JOIN magasin ON id_magasin_vernis = id_magasin WHERE utilisateur.id_user=" + SimpleUserId;
                     else
-                        query = "SELECT * FROM prix JOIN vernis on id_prix_vernis = id_prix JOIN magasin on id_magasin_vernis = id_magasin";
+                    {
+                        if (valide)
+                            query = "SELECT * FROM prix JOIN vernis on id_prix_vernis = id_prix JOIN magasin on id_magasin_vernis = id_magasin WHERE valide = 0 ";
+                        else
+                            query = "SELECT * FROM prix JOIN vernis on id_prix_vernis = id_prix JOIN magasin on id_magasin_vernis = id_magasin";
+                    }
 
                     MySqlCommand cmd = new MySqlCommand(query, MainWindow.Connexion);
 

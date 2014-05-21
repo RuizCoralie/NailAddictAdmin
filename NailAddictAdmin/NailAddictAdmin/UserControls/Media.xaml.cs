@@ -25,7 +25,7 @@ namespace NailAddictAdmin.UserControls
     /// </summary>
     public partial class Media : UserControl, INotifyPropertyChanged
     {
-        
+        private int SimpleUserId;
         private bool _VisibilityValide;
         public bool VisibilityValide
         {
@@ -42,12 +42,13 @@ namespace NailAddictAdmin.UserControls
         {
             InitializeComponent();
         }
-        public Media(List<MediaModel> media, bool valide)
+        public Media(List<MediaModel> media, bool valide, int simpleUser = 0)
         {
             InitializeComponent();
             MediaCollection = new ObservableCollection<MediaModel>(media);
             VisibilityValide = valide;
             Action = valide ? "Validation" : "Gestion";
+            SimpleUserId = simpleUser;
         }
         #endregion
 
@@ -162,10 +163,15 @@ namespace NailAddictAdmin.UserControls
                 {
 
                     string query = null;
-                    if (valide)
-                        query = "SELECT * FROM media WHERE valide=0  ORDER BY date_creation";
+                    if (SimpleUserId != 0)
+                        query = "SELECT * FROM media WHERE id_user="+SimpleUserId;
                     else
-                        query = "SELECT * FROM media ORDER BY date_creation";
+                    {
+                        if (valide)
+                            query = "SELECT * FROM media WHERE valide=0  ORDER BY date_creation";
+                        else
+                            query = "SELECT * FROM media ORDER BY date_creation";
+                    }
 
                     MySqlCommand cmd = new MySqlCommand(query, MainWindow.Connexion);
 

@@ -195,7 +195,7 @@ namespace NailAddictAdmin.UserControls
                     dataReader.Close();
 
                     if (listVernis != null)
-                        uc_Vernis = new Vernis(listVernis, false);
+                        uc_Vernis = new Vernis(listVernis, false,UtilisateurSelected.Id);
 
                     if(uc_Vernis!=null)
                     {
@@ -235,7 +235,7 @@ namespace NailAddictAdmin.UserControls
                     dataReader.Close();
 
                     if (listVernis != null)
-                        uc_Media = new Media(listVernis, false);
+                        uc_Media = new Media(listVernis, false, UtilisateurSelected.Id);
 
                     if (uc_Media != null)
                     {
