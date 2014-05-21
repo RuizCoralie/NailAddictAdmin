@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using NailAddictAdmin.Models;
+using NailAddictAdmin.UserControls.Apercu;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -183,6 +184,18 @@ namespace NailAddictAdmin.UserControls
             catch (MySql.Data.MySqlClient.MySqlException ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void DataGrid_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (MediaSelected != null)
+            {
+                var apercu = new ApercuWindows();
+                apercu.Uc_Apercu = new ApercuMedia(MediaSelected);
+                apercu.Height = 600;
+                apercu.Width = 560;
+                apercu.Show();
             }
         }
     }

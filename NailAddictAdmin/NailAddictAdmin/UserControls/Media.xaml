@@ -37,7 +37,7 @@
             <TextBlock x:Name="tbAction" Text="{Binding Action}" Style="{StaticResource TextBlockStyleTitre}"/>
         </StackPanel>
         <DataGrid ItemsSource="{Binding MediaCollection, Mode=TwoWay}" AutoGenerateColumns="False" Grid.Row="1" 
-                  SelectedItem="{Binding MediaSelected}" SelectionMode="Single">
+                  SelectedItem="{Binding MediaSelected}" SelectionMode="Single" PreviewMouseRightButtonDown="DataGrid_PreviewMouseRightButtonDown">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Type" Binding="{Binding Type}" IsReadOnly="True"/>

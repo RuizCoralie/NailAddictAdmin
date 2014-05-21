@@ -93,6 +93,8 @@ namespace NailAddictAdmin
             }
         }
         #endregion
+
+        #region Events
         private void btn_UserAll_Click(object sender, RoutedEventArgs e)
         {
             List<Utilisateur> listUser = new List<Utilisateur>();
@@ -255,5 +257,6 @@ namespace NailAddictAdmin
         {
             Uc_Admin = new Home();
         }
+        #endregion 
     }
 }

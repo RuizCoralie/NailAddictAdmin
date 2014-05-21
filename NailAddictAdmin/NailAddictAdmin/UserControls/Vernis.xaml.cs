@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using NailAddictAdmin.Models;
+using NailAddictAdmin.UserControls.Apercu;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -82,8 +83,6 @@ namespace NailAddictAdmin.UserControls
         {
             get
             {
-                if (_VernisSelected == null)
-                    _VernisSelected = new VernisModel();
                 return _VernisSelected;
             }
             set
@@ -106,6 +105,7 @@ namespace NailAddictAdmin.UserControls
         }
         #endregion
 
+        #region Events
         private void btn_Supp_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Voulez vous vraiment suppimer ce vernis?", "Question", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
@@ -162,6 +162,7 @@ namespace NailAddictAdmin.UserControls
             }
         }
 
+        #endregion
         private void Refresh(bool valide)
         {
             List<VernisModel> listVernis = new List<VernisModel>();
@@ -195,6 +196,20 @@ namespace NailAddictAdmin.UserControls
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void DataGrid_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (VernisSelected != null)
+            {
+                var apercu = new ApercuWindows();
+                apercu.Uc_Apercu = new ApercuVernis(VernisSelected);
+                apercu.Height = 600;
+                apercu.Width = 800;
+                apercu.Show();
+            }
+        }
+
+    
 
     }
 }

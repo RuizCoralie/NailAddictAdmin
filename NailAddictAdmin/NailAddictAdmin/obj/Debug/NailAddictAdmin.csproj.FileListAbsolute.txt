@@ -21,3 +21,9 @@ c:\users\ruizc\documents\visual studio 2013\Projects\NailAddictAdmin\NailAddictA
 c:\users\ruizc\documents\visual studio 2013\Projects\NailAddictAdmin\NailAddictAdmin\obj\Debug\NailAddictAdmin.pdb
 c:\users\ruizc\documents\visual studio 2013\Projects\NailAddictAdmin\NailAddictAdmin\obj\Debug\GeneratedInternalTypeHelper.g.cs
 c:\users\ruizc\documents\visual studio 2013\Projects\NailAddictAdmin\NailAddictAdmin\obj\Debug\NailAddictAdmin.csprojResolveAssemblyReference.cache
+C:\Users\RuizC\Documents\Visual Studio 2013\Projects\NailAddictAdmin\NailAddictAdmin\obj\Debug\UserControls\Apercu\ApercuVernis.baml
+C:\Users\RuizC\Documents\Visual Studio 2013\Projects\NailAddictAdmin\NailAddictAdmin\obj\Debug\UserControls\Apercu\ApercuVernis.g.cs
+C:\Users\RuizC\Documents\Visual Studio 2013\Projects\NailAddictAdmin\NailAddictAdmin\obj\Debug\ApercuWindows.baml
+C:\Users\RuizC\Documents\Visual Studio 2013\Projects\NailAddictAdmin\NailAddictAdmin\obj\Debug\ApercuWindows.g.cs
+C:\Users\RuizC\Documents\Visual Studio 2013\Projects\NailAddictAdmin\NailAddictAdmin\obj\Debug\UserControls\Apercu\ApercuMedia.baml
+C:\Users\RuizC\Documents\Visual Studio 2013\Projects\NailAddictAdmin\NailAddictAdmin\obj\Debug\UserControls\Apercu\ApercuMedia.g.cs

@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-c:\users\ruizc\documents\visual studio 2013\Projects\NailAddictAdmin\NailAddictAdmin\obj\Debug\
+C:\Users\RuizC\Documents\Visual Studio 2013\Projects\NailAddictAdmin\NailAddictAdmin\obj\Debug\
 NailAddictAdmin
 none
 false
 DEBUG;TRACE
-c:\users\ruizc\documents\visual studio 2013\Projects\NailAddictAdmin\NailAddictAdmin\App.xaml
-51653666331
+C:\Users\RuizC\Documents\Visual Studio 2013\Projects\NailAddictAdmin\NailAddictAdmin\App.xaml
+8-702235904
 
-17-1256740818
+20-842797509
 14-1313218556
-MainWindow.xaml;UserControls\Home.xaml;UserControls\Media.xaml;UserControls\Users.xaml;UserControls\Vernis.xaml;
+ApercuWindows.xaml;MainWindow.xaml;UserControls\Apercu\ApercuMedia.xaml;UserControls\Apercu\ApercuVernis.xaml;UserControls\Home.xaml;UserControls\Media.xaml;UserControls\Users.xaml;UserControls\Vernis.xaml;
 
 False
 
