@@ -22,6 +22,13 @@
             <Setter Property="Foreground" Value="#BF1E4B"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
+        <Style x:Key="TextBlockStyleDonnee" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe Light UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
     </UserControl.Resources>
     <Grid DataContext="{Binding Vernis}">
         <Grid.RowDefinitions>
@@ -44,35 +51,35 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Row="0">
                 <TextBlock  Text="Id : " Style="{StaticResource TextBlockStyleTitre}"/>
-                <TextBlock  Text="{Binding Id}" Style="{StaticResource TextBlockStyleTitre}"/>
+                <TextBlock  Text="{Binding Id}" Style="{StaticResource TextBlockStyleDonnee}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="1">
                 <TextBlock  Text="Marque : " Style="{StaticResource TextBlockStyleTitre}"/>
-                <TextBlock  Text="{Binding Marque}" Style="{StaticResource TextBlockStyleTitre}"/>
+                <TextBlock  Text="{Binding Marque}" Style="{StaticResource TextBlockStyleDonnee}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="2">
                 <TextBlock  Text="Texture : " Style="{StaticResource TextBlockStyleTitre}"/>
-                <TextBlock  Text="{Binding Texture}" Style="{StaticResource TextBlockStyleTitre}"/>
+                <TextBlock  Text="{Binding Texture}" Style="{StaticResource TextBlockStyleDonnee}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="3">
                 <TextBlock  Text="Couleur : " Style="{StaticResource TextBlockStyleTitre}"/>
-                <TextBlock  Text="{Binding Couleur}" Style="{StaticResource TextBlockStyleTitre}"/>
+                <TextBlock  Text="{Binding Couleur}" Style="{StaticResource TextBlockStyleDonnee}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
-                <TextBlock  Text="Reference: " Style="{StaticResource TextBlockStyleTitre}"/>
-                <TextBlock  Text="{Binding Reference}" Style="{StaticResource TextBlockStyleTitre}"/>
+                <TextBlock  Text="Reference : " Style="{StaticResource TextBlockStyleTitre}"/>
+                <TextBlock  Text="{Binding Reference}" Style="{StaticResource TextBlockStyleDonnee}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
                 <TextBlock  Text="Prix : " Style="{StaticResource TextBlockStyleTitre}"/>
-                <TextBlock  Text="{Binding Prix}" Style="{StaticResource TextBlockStyleTitre}"/>
+                <TextBlock  Text="{Binding Prix}" Style="{StaticResource TextBlockStyleDonnee}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
                 <TextBlock  Text="Magasin : " Style="{StaticResource TextBlockStyleTitre}"/>
-                <TextBlock  Text="{Binding Magasin}" Style="{StaticResource TextBlockStyleTitre}"/>
+                <TextBlock  Text="{Binding Magasin}" Style="{StaticResource TextBlockStyleDonnee}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
                 <TextBlock  Text="Valide : " Style="{StaticResource TextBlockStyleTitre}"/>
-                <TextBlock  Text="{Binding Valide}" Style="{StaticResource TextBlockStyleTitre}"/>
+                <TextBlock  Text="{Binding Valide}" Style="{StaticResource TextBlockStyleDonnee}"/>
             </StackPanel>
         </Grid>             
     </Grid>

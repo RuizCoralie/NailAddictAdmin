@@ -24,6 +24,18 @@
             <Setter Property="Margin" Value="0,18,0,0"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
+        <Style x:Key="Body_Content_DataGrid_Centering"
+        TargetType="{x:Type DataGridCell}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -36,18 +48,26 @@
             <TextBlock x:Name="tbTitre" Text="Vernis : " Style="{StaticResource TextBlockStyleTitre}"/>
             <TextBlock x:Name="tbAction" Text="{Binding Action}" Style="{StaticResource TextBlockStyleTitre}"/>
         </StackPanel>
-        <DataGrid ItemsSource="{Binding VernisCollection, Mode=TwoWay}" AutoGenerateColumns="False" Grid.Row="1" 
-                  SelectedItem="{Binding VernisSelected}" SelectionMode="Single" PreviewMouseRightButtonDown="DataGrid_PreviewMouseRightButtonDown" >
+        <DataGrid ItemsSource="{Binding VernisCollection, Mode=TwoWay}" AutoGenerateColumns="False" Grid.Row="1" CanUserAddRows="False"
+                  SelectedItem="{Binding VernisSelected}" SelectionMode="Single" PreviewMouseRightButtonDown="DataGrid_PreviewMouseRightButtonDown" 
+                  CellStyle="{StaticResource Body_Content_DataGrid_Centering}" SelectionUnit="FullRow">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True"/>
+                <DataGridTemplateColumn IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding LienVernis}" Width="55" Height="55" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True" />
                 <DataGridTextColumn Header="Marque" Binding="{Binding Marque}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Texture" Binding="{Binding Texture}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Texture" Binding="{Binding Texture}" IsReadOnly="True" />
                 <DataGridTextColumn Header="Couleur" Binding="{Binding Couleur}" IsReadOnly="True" />
-                <DataGridTextColumn Header="Reference" Binding="{Binding Reference}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Lien vernis" Binding="{Binding LienVernis}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Prix" Binding="{Binding Prix}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Magasin" Binding="{Binding Magasin}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Valide" Binding="{Binding Valide}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Reference" Binding="{Binding Reference}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Lien vernis" Binding="{Binding LienVernis}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Prix" Binding="{Binding Prix}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Magasin" Binding="{Binding Magasin}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Valide" Binding="{Binding Valide}" IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">

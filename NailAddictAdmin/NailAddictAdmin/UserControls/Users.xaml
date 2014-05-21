@@ -22,6 +22,18 @@
             <Setter Property="Margin" Value="0,18,0,0"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
+        <Style x:Key="Body_Content_DataGrid_Centering"
+        TargetType="{x:Type DataGridCell}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -34,9 +46,23 @@
             <TextBlock Text="Users" Style="{StaticResource TextBlockStyleTitre}"/>
         </StackPanel>
         <DataGrid ItemsSource="{Binding UsersCollection, Mode=TwoWay}" AutoGenerateColumns="False" Grid.Row="1" 
-                  SelectedItem="{Binding UtilisateurSelected}" SelectionMode="Single">
+                  SelectedItem="{Binding UtilisateurSelected}" SelectionMode="Single" CanUserAddRows="False"
+                  CellStyle="{StaticResource Body_Content_DataGrid_Centering}" SelectionUnit="FullRow">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="menu_vernis" Header="Vernis" Click="menu_vernis_Click"/>
+                    <MenuItem x:Name="menu_media" Header="Media" Click="menu_media_Click"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True"/>
+                <DataGridTemplateColumn IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding LienPhoto}" Width="55" Height="55" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True" />
                 <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Prenom" Binding="{Binding Prenom}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Pseudo" Binding="{Binding Pseudo}" IsReadOnly="True" /> 

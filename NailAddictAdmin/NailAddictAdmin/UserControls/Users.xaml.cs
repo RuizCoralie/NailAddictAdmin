@@ -172,5 +172,85 @@ namespace NailAddictAdmin.UserControls
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void menu_vernis_Click(object sender, RoutedEventArgs e)
+        {
+            UserControl uc_Vernis= null;
+            List<VernisModel> listVernis = new List<VernisModel>();
+            try
+            {
+                if (MainWindow.Connexion.State == System.Data.ConnectionState.Open)
+                {
+                    string query = "SELECT * FROM utilisateur JOIN collection ON utilisateur.id_user = collection.id_user JOIN vernis ON collection.id_vernis = vernis.id_vernis JOIN prix ON id_prix_vernis = id_prix JOIN magasin ON id_magasin_vernis = id_magasin WHERE utilisateur.id_user="+ UtilisateurSelected.Id;
+                    MySqlCommand cmd = new MySqlCommand(query, MainWindow.Connexion);
+
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    //Read the data and store them in the list
+                    while (dataReader.Read())
+                    {
+                        listVernis.Add(new VernisModel(dataReader));
+                    }
+
+                    dataReader.Close();
+
+                    if (listVernis != null)
+                        uc_Vernis = new Vernis(listVernis, false);
+
+                    if(uc_Vernis!=null)
+                    {
+                        var apercu = new ApercuWindows();
+                        apercu.Uc_Apercu = uc_Vernis;
+                        apercu.Height = 600;
+                        apercu.Width = 800;
+                        apercu.Show();
+                    }
+                }
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void menu_media_Click(object sender, RoutedEventArgs e)
+        {
+            UserControl uc_Media = null;
+            List<MediaModel> listVernis = new List<MediaModel>();
+            try
+            {
+                if (MainWindow.Connexion.State == System.Data.ConnectionState.Open)
+                {
+                    string query = "SELECT * FROM media WHERE id_user=" + UtilisateurSelected.Id ;
+                    MySqlCommand cmd = new MySqlCommand(query, MainWindow.Connexion);
+
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    //Read the data and store them in the list
+                    while (dataReader.Read())
+                    {
+                        listVernis.Add(new MediaModel(dataReader));
+                    }
+
+                    dataReader.Close();
+
+                    if (listVernis != null)
+                        uc_Media = new Media(listVernis, false);
+
+                    if (uc_Media != null)
+                    {
+                        var apercu = new ApercuWindows();
+                        apercu.Uc_Apercu = uc_Media;
+                        apercu.Height = 600;
+                        apercu.Width = 800;
+                        apercu.Show();
+                    }
+                }
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
